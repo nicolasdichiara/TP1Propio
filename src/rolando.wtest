@@ -1,0 +1,33 @@
+import rolando.*
+import fuerzaOscura.*
+import hechizos.*
+import artefactos.*
+
+test "Cambiar el valor base de lucha de rolando" {
+	rolando.cambiarValorBaseLucha(5)
+	assert.equals(5,rolando.valorBaseLucha())
+}
+
+test "agregar artefacto espadaDelDestino a rolando" {
+	rolando.agregarArtefacto(espadaDelDestino)
+	assert.equals([espadaDelDestino],rolando.verArtefactos())
+}
+
+test "sacar artefacto espadaDelDestino a rolando" {
+	rolando.agregarArtefacto(espadaDelDestino)
+	rolando.sacarArtefacto(espadaDelDestino)
+	assert.equals([],rolando.verArtefactos())
+}
+
+test "valor de habilidad de lucha de rolando con espadaDelDestino y mascaraOscura" {
+	rolando.agregarArtefacto(espadaDelDestino)
+	rolando.agregarArtefacto(mascaraOscura)
+	assert.equals(8,rolando.habilidadDeLucha())
+}
+
+test "rolando tiene mayor nivel de lucha que de hechiceria" {
+	rolando.cambiarHechizo(hechizoBasico)
+	rolando.agregarArtefacto(espadaDelDestino)
+	rolando.cambiarValorBaseLucha(33)
+	assert.equals(true,rolando.masLuchaQueHechiceria())
+}
