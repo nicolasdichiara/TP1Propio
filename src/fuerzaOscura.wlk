@@ -1,14 +1,11 @@
 
-object fuerzaOscura {
-
-	var poder=5
-	
+object fuerzaOscura{
+	var fuerzaOscura = 5
 	method poder(){
-		return poder
+		return fuerzaOscura
 	}
 	
 	method eclipse(){
-		poder=poder*2
+		fuerzaOscura=fuerzaOscura*2
 	}
-
 }

@@ -1,33 +1,193 @@
 import rolando.*
-import fuerzaOscura.*
 import hechizos.*
+import fuerzaOscura.*
 import artefactos.*
+import refuerzos.*
+import libroDeHechizos.*
+import espejo.*
 
-test "Cambiar el valor base de lucha de rolando" {
-	rolando.cambiarValorBaseLucha(5)
-	assert.equals(5,rolando.valorBaseLucha())
+
+test "rolando elige su poder favorito 'espectroMalefico' lo que hace que su nivel de Hechizeria sea de 56" {
+    rolando.elegirHechizoPreferido(hechizo)
+	assert.equals(56,rolando.nivelDeHechiceria())
+
 }
 
-test "agregar artefacto espadaDelDestino a rolando" {
+
+test"hechizo espectro malefico tiene un poder de 17"{
+	assert.equals(17,hechizo.poder())
+}
+test"hechizo espectro malefico puede cambiar de nombre a abrakadabra por lo que su valor es 11"{
+	hechizo.nombrePoder('abraKadabra')
+	assert.equals(11,hechizo.poder())
+}
+
+test"hechizo basico tiene un poder de 10"{
+	assert.equals(10,hechizoBasico.poder())
+}
+
+test "el hechizo espectro malefico cambio de nombre a abraKadabra y su valor es 11"{
+    rolando.elegirHechizoPreferido(hechizo)
+    hechizo.nombrePoder('abraKadabra')
+    rolando.elegirHechizoPreferido(hechizo)
+    assert.equals(11,rolando.getHechizoPreferido().poder())
+
+
+}
+
+test "Cambiar el hechizo preferido de Rolando a hechizoBasico como nuevo favorito y su valor es 10"{
+    rolando.elegirHechizoPreferido(hechizo)
+    rolando.elegirHechizoPreferido(hechizoBasico)
+    assert.equals(10,rolando.getHechizoPreferido().poder())
+}
+
+test "La fuerza oscura vale 5 por ahora, cuando se produce un eclipse la fuerza de la oscuridad se duplique y su valor queda en 10"{
+	fuerzaOscura.eclipse()
+	assert.equals(10,fuerzaOscura.poder())
+	
+}
+test"Hechizo es poderoso"{
+	assert.that(hechizo.esPoderoso())
+}
+
+test"Hechizo Basico no es poderoso"{
+	assert.notThat(hechizoBasico.esPoderoso())
+}
+
+test "Rolando se cree poderoso porque el poder de 'espectro malefico' es mayor de 15"{
+    rolando.elegirHechizoPreferido(hechizo)
+	assert.that(rolando.teSentisPoderoso())
+}
+
+test "Rolando no se cree poderoso porque el poder de 'hechizoBasico' es menor de 15"{
+	rolando.elegirHechizoPreferido(hechizoBasico)
+	assert.notThat(rolando.teSentisPoderoso())
+}
+
+test "modificar valor base de lucha de Rolando a 10"{
+	rolando.cambiarValorBaseLucha(10)
+	assert.equals(10,rolando.valorBaseLucha())
+}
+
+test"espadaDelDestino tiene un poder de 3"{
+	assert.equals(3,espadaDelDestino.poder())
+}
+
+test"collarDivino se le cambia el valor por 10 entonces tiene un poder de 10"{
+	collarDivino.cantidadDePerlas(10)
+	assert.equals(10,collarDivino.poder())
+}
+
+test"mascaraOscura tiene un poder de 4"{
+	assert.equals(4,mascaraOscura.poder())
+}
+
+test "Agregar artefacto espadaDelDestino"{
 	rolando.agregarArtefacto(espadaDelDestino)
 	assert.equals([espadaDelDestino],rolando.verArtefactos())
 }
 
-test "sacar artefacto espadaDelDestino a rolando" {
+test "Agregar artefacto espadaDelDestino, Removerlo y debe traer coleccion vacia"{
 	rolando.agregarArtefacto(espadaDelDestino)
-	rolando.sacarArtefacto(espadaDelDestino)
+	rolando.removerArtefacto(espadaDelDestino)
 	assert.equals([],rolando.verArtefactos())
 }
 
-test "valor de habilidad de lucha de rolando con espadaDelDestino y mascaraOscura" {
+test "saber el valor de lucha de rolando agregando espadaDelDestino y mascaraOscura, debe dar 8"{
 	rolando.agregarArtefacto(espadaDelDestino)
 	rolando.agregarArtefacto(mascaraOscura)
 	assert.equals(8,rolando.habilidadDeLucha())
 }
 
-test "rolando tiene mayor nivel de lucha que de hechiceria" {
-	rolando.cambiarHechizo(hechizoBasico)
+test "Rolando no tiene mas valor de lucha que nivel de hechiceria agregando espadaDelDestino y mascaraOscura con hechizoBasico"{
+	rolando.elegirHechizoPreferido(hechizoBasico)
 	rolando.agregarArtefacto(espadaDelDestino)
-	rolando.cambiarValorBaseLucha(33)
-	assert.equals(true,rolando.masLuchaQueHechiceria())
+	rolando.agregarArtefacto(mascaraOscura)
+	assert.equals(false,rolando.laLuchaEsMayorQueHechiceria())
+}
+
+test "Rolando tiene mas valor de lucha que nivel de hechiceria agregando espadaDelDestino y mascaraOscura con hechizo de una sola letra"{
+	hechizo.nombrePoder('h')
+	rolando.elegirHechizoPreferido(hechizo)
+	rolando.agregarArtefacto(espadaDelDestino)
+	rolando.agregarArtefacto(mascaraOscura)
+	rolando.cambiarValorBaseLucha(2)
+	assert.equals(true,rolando.laLuchaEsMayorQueHechiceria())
+}
+test "agregar armadura y refuerzo cota de malla es igual a 4"{
+	armadura.elegirRefuerzo(cotaDeMalla)
+	rolando.agregarArtefacto(armadura)
+	assert.equals(4,rolando.habilidadDeLucha())
+}
+test"agregar armadura y refuerzo bendicion es igual a 59"{
+	armadura.elegirRefuerzo(bendicion)
+	rolando.elegirHechizoPreferido(hechizo)
+	rolando.agregarArtefacto(armadura)
+	assert.equals(59,rolando.habilidadDeLucha())
+}
+test "agregar armadura y refuerzo ninguno es iguala 3"{
+	rolando.agregarArtefacto(armadura)
+	assert.equals(3,rolando.habilidadDeLucha())
+}
+test "agregar armadura y refuerzo hechizo basico es igual a 13"{
+	armadura.elegirRefuerzo(hechizoBasico)
+	rolando.agregarArtefacto(armadura)
+	assert.equals(13,rolando.habilidadDeLucha())
+}
+test "agregar armadura y refuerzo el hechizo espectro malefico es igual a 20"{
+	armadura.elegirRefuerzo(hechizo)
+	rolando.agregarArtefacto(armadura)
+	assert.equals(20,rolando.habilidadDeLucha())
+}
+
+test "mejor pertenencia da 4 de poder" {
+	rolando.agregarArtefacto(mascaraOscura)
+	rolando.agregarArtefacto(espadaDelDestino)
+	rolando.agregarPertenencias(espejo)
+	assert.equals(4,espejo.poder())
+}
+
+test "si espejo es unica pertenencia da 0 de poder"{
+	rolando.agregarArtefacto(espejo)
+	assert.equals(0,espejo.poder())
+}
+
+test "habilidad de lucha con mascaraOscura, espadaDelDestino y espejo"{
+	rolando.agregarArtefacto(mascaraOscura)
+	rolando.agregarArtefacto(espadaDelDestino)
+	rolando.agregarPertenencias(espejo)
+	assert.equals(12,rolando.habilidadDeLucha())
+}
+
+test "agregamos libro de hechizos como hechizo preferido y su nivel de hechiceria seria de 56"{
+	rolando.elegirHechizoPreferido(libroDeHechizos)
+	assert.equals(56,rolando.nivelDeHechiceria()) //3*17+5=56
+}
+test"rolando esta cargado con mas de 5 elementos"{
+	rolando.agregarArtefacto(mascaraOscura)
+	rolando.agregarArtefacto(espadaDelDestino)
+	armadura.elegirRefuerzo(cotaDeMalla)
+	rolando.agregarArtefacto(armadura)
+	collarDivino.cantidadDePerlas(5)
+	rolando.agregarArtefacto(collarDivino)
+	rolando.agregarPertenencias(espejo)
+	rolando.agregarArtefacto(mascaraOscura)
+	assert.equals(true,rolando.estasCargado())
+}
+test"rolando no esta cargado con 5 elementos"{
+	rolando.agregarArtefacto(armadura)
+	collarDivino.cantidadDePerlas(5)
+	rolando.agregarArtefacto(collarDivino)
+	rolando.agregarPertenencias(espejo)
+	rolando.agregarArtefacto(mascaraOscura)
+	assert.notEquals(true,rolando.estasCargado())
+}
+test"rolando esta cargado con  5 elementos"{
+	rolando.agregarArtefacto(mascaraOscura)
+	rolando.agregarArtefacto(armadura)
+	collarDivino.cantidadDePerlas(5)
+	rolando.agregarArtefacto(collarDivino)
+	rolando.agregarPertenencias(espejo)
+	rolando.agregarArtefacto(mascaraOscura)
+	assert.equals(false,rolando.estasCargado())
 }

@@ -1,22 +1,28 @@
-object espectroMalefico {
+
+object hechizo{
+	var nombre = "espectro malefico"
+
 	
-	var nombre= 'Espectro Malefico'
+	method nombrePoder(_nombre){
+		nombre=_nombre
+	}
 	
 	method poder(){
-		return nombre.size()
+		return nombre.length()
+		}
+
+	method esPoderoso(){
+		return self.poder()>15
 	}
-	
-	method cambiarNombre(nuevoNombre){
-		nombre= nuevoNombre
-	}
-	
 }
 
+
 object hechizoBasico{
-	
-	var poder=10
-	
 	method poder(){
-		return poder
+		return 10
+	}
+	
+	method esPoderoso(){
+		return false
 	}
 }

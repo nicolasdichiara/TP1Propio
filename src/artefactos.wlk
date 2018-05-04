@@ -1,34 +1,61 @@
 import fuerzaOscura.*
-
+import refuerzos.*
+import rolando.*
 object espadaDelDestino {
 	
-	var habilidadDeLucha=3
+	var poder=3
 	
-	method habilidadDeLucha(){
-		return habilidadDeLucha
+	method poder(){
+		return poder
 	}
-	
+	method nombre(){
+		return"espadaDelDestino"
+	}
 }
 
 object collarDivino{
-	var perlas=0
+	var perlas
 	
-	method habilidadDeLucha(){
+	method poder(){
 		return perlas
 	}
 	
 	method cantidadDePerlas(cantidad){
 		perlas=cantidad
 	}
+		method nombre(){
+		return"collarDivino"
+	}
+	
 }
 
 object mascaraOscura{
-	
-	method habilidadDeLucha(){
-		if (fuerzaOscura.poder()/2<4){
-			return 4
+	var unidad = 4
+	method poder(){
+		if (fuerzaOscura.poder()/2<=4){
+			return unidad
 		} else {
 			return fuerzaOscura.poder()/2 
 		}
 	}
+		method nombre(){
+		return"mascaraOscura"
+	}
+	
+}
+
+object armadura{
+	var tipoRefuerzo=ningunoRefuerzo
+	var unidad=2
+	
+	method elegirRefuerzo(_tipoRefuerzo){
+		tipoRefuerzo=_tipoRefuerzo
+	}
+	method poder(){
+		return unidad + tipoRefuerzo.poder()
+	}
+		method nombre(){
+		return"armadura"
+	}
+	
 }
