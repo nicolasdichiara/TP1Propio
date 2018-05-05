@@ -7,22 +7,41 @@ object hechizo{
 		nombre=_nombre
 	}
 	
-	method poder(){
+	method poder(personaje){
 		return nombre.length()
 		}
 
-	method esPoderoso(){
-		return self.poder()>15
+	method esPoderoso(personaje){
+		return self.poder(personaje)>15
 	}
 }
 
 
 object hechizoBasico{
-	method poder(){
+	method poder(personaje){
 		return 10
 	}
 	
-	method esPoderoso(){
+	method esPoderoso(personaje){
 		return false
+	}
+}
+
+class HechizoDeLogo{
+	
+	var nombre
+	var multiplo
+	
+	constructor(_nombre,_multiplo){
+		nombre=_nombre
+		multiplo=_multiplo
+	}
+	
+	method poder(personaje){
+		return nombre.length() * multiplo
+		}
+
+	method esPoderoso(personaje){
+		return self.poder(personaje)>15
 	}
 }

@@ -2,18 +2,18 @@ import rolando.*
 
 object espejo{
 	
-	method mejorArtefactoSinEspejo() {
-		return rolando.verArtefactos()
+	method mejorArtefactoSinEspejo(personaje) {
+		return personaje.verArtefactos()
 			.filter{ artefacto => artefacto != self }
-			.max{ artefacto => artefacto.poder() }
+			.max{ artefacto => artefacto.poder(personaje) }
 	}
 	
-	method poder(){
-		if(rolando.verArtefactos().isEmpty()){
+	method poder(personaje){
+		if(personaje.verArtefactos().isEmpty()){
 			return 0
-		} else if(rolando.verArtefactos().size()==1 and rolando.verArtefactos()==[self]){
+		} else if(personaje.verArtefactos().size()==1 and personaje.verArtefactos()==[self]){
 			return 0
-		} else return  self.mejorArtefactoSinEspejo().poder()
+		} else return  self.mejorArtefactoSinEspejo(personaje).poder(personaje)
 	}
 	
 }

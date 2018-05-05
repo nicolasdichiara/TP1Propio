@@ -2,7 +2,7 @@ import hechizos.*
 import fuerzaOscura.*
 import artefactos.*
 
-object rolando {
+class Personaje {
 	var valorBase = 3
 	var hechizoPreferido
 	var valorBaseLucha = 1
@@ -32,11 +32,11 @@ object rolando {
 
 	//metodo
 	method nivelDeHechiceria() {
-		return ( valorBase * hechizoPreferido.poder() ) + fuerzaOscura.poder()
+		return ( valorBase * hechizoPreferido.poder(self) ) + fuerzaOscura.poder()
 	}
 
 	method teSentisPoderoso() { //a la variable que tomo el nombre del hechizo saco su valor con .poder()
-		return hechizoPreferido.esPoderoso()
+		return hechizoPreferido.esPoderoso(self)
 	}
 
 	method agregarArtefacto(_artefacto) {
@@ -56,7 +56,7 @@ object rolando {
 	}
 
 	method habilidadDeLucha() {
-		return valorBaseLucha+ (artefactos).sum{ artefacto => artefacto.poder() }
+		return valorBaseLucha+ (artefactos).sum{ artefacto => artefacto.poder(self) }
 	}
 
 	method laLuchaEsMayorQueHechiceria() {

@@ -6,6 +6,10 @@ import refuerzos.*
 import libroDeHechizos.*
 import espejo.*
 
+describe "Tests con rolando"{
+	
+	const rolando = new Personaje()
+
 
 test "rolando elige su poder favorito 'espectroMalefico' lo que hace que su nivel de Hechizeria sea de 56" {
     rolando.elegirHechizoPreferido(hechizo)
@@ -15,22 +19,22 @@ test "rolando elige su poder favorito 'espectroMalefico' lo que hace que su nive
 
 
 test"hechizo espectro malefico tiene un poder de 17"{
-	assert.equals(17,hechizo.poder())
+	assert.equals(17,hechizo.poder(rolando))
 }
 test"hechizo espectro malefico puede cambiar de nombre a abrakadabra por lo que su valor es 11"{
 	hechizo.nombrePoder('abraKadabra')
-	assert.equals(11,hechizo.poder())
+	assert.equals(11,hechizo.poder(rolando))
 }
 
 test"hechizo basico tiene un poder de 10"{
-	assert.equals(10,hechizoBasico.poder())
+	assert.equals(10,hechizoBasico.poder(rolando))
 }
 
 test "el hechizo espectro malefico cambio de nombre a abraKadabra y su valor es 11"{
     rolando.elegirHechizoPreferido(hechizo)
     hechizo.nombrePoder('abraKadabra')
     rolando.elegirHechizoPreferido(hechizo)
-    assert.equals(11,rolando.getHechizoPreferido().poder())
+    assert.equals(11,rolando.getHechizoPreferido().poder(rolando))
 
 
 }
@@ -38,7 +42,7 @@ test "el hechizo espectro malefico cambio de nombre a abraKadabra y su valor es 
 test "Cambiar el hechizo preferido de Rolando a hechizoBasico como nuevo favorito y su valor es 10"{
     rolando.elegirHechizoPreferido(hechizo)
     rolando.elegirHechizoPreferido(hechizoBasico)
-    assert.equals(10,rolando.getHechizoPreferido().poder())
+    assert.equals(10,rolando.getHechizoPreferido().poder(rolando))
 }
 
 test "La fuerza oscura vale 5 por ahora, cuando se produce un eclipse la fuerza de la oscuridad se duplique y su valor queda en 10"{
@@ -47,11 +51,11 @@ test "La fuerza oscura vale 5 por ahora, cuando se produce un eclipse la fuerza 
 	
 }
 test"Hechizo es poderoso"{
-	assert.that(hechizo.esPoderoso())
+	assert.that(hechizo.esPoderoso(rolando))
 }
 
 test"Hechizo Basico no es poderoso"{
-	assert.notThat(hechizoBasico.esPoderoso())
+	assert.notThat(hechizoBasico.esPoderoso(rolando))
 }
 
 test "Rolando se cree poderoso porque el poder de 'espectro malefico' es mayor de 15"{
@@ -70,16 +74,16 @@ test "modificar valor base de lucha de Rolando a 10"{
 }
 
 test"espadaDelDestino tiene un poder de 3"{
-	assert.equals(3,espadaDelDestino.poder())
+	assert.equals(3,espadaDelDestino.poder(rolando))
 }
 
 test"collarDivino se le cambia el valor por 10 entonces tiene un poder de 10"{
 	collarDivino.cantidadDePerlas(10)
-	assert.equals(10,collarDivino.poder())
+	assert.equals(10,collarDivino.poder(rolando))
 }
 
 test"mascaraOscura tiene un poder de 4"{
-	assert.equals(4,mascaraOscura.poder())
+	assert.equals(4,mascaraOscura.poder(rolando))
 }
 
 test "Agregar artefacto espadaDelDestino"{
@@ -144,12 +148,12 @@ test "mejor pertenencia da 4 de poder" {
 	rolando.agregarArtefacto(mascaraOscura)
 	rolando.agregarArtefacto(espadaDelDestino)
 	rolando.agregarPertenencias(espejo)
-	assert.equals(4,espejo.poder())
+	assert.equals(4,espejo.poder(rolando))
 }
 
 test "si espejo es unica pertenencia da 0 de poder"{
 	rolando.agregarArtefacto(espejo)
-	assert.equals(0,espejo.poder())
+	assert.equals(0,espejo.poder(rolando))
 }
 
 test "habilidad de lucha con mascaraOscura, espadaDelDestino y espejo"{
@@ -191,3 +195,5 @@ test"rolando esta cargado con  5 elementos"{
 	rolando.agregarArtefacto(mascaraOscura)
 	assert.equals(false,rolando.estasCargado())
 }
+}
+

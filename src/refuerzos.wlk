@@ -1,18 +1,19 @@
 import rolando.*
+
 object cotaDeMalla{
-method poder(){
-	return 1
-}
-}
-object bendicion{
-	method poder(){
-		return rolando.nivelDeHechiceria()
+	method poder(personaje){
+		return 1
 	}
 }
 
+object bendicion{
+	method poder(personaje){
+		return personaje.nivelDeHechiceria()
+	}
+}
 
 object ningunoRefuerzo{
-	method poder(){
+	method poder(personaje){
 		return 0
 	}
 }
